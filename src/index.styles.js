@@ -31,8 +31,8 @@ export const CONSTANTS = {
 
   // FONTS
   headingFont: `'Roboto Condensed', Sans-Serif`,
-  smallText: "0.875rem",
-  extraSmallText: "0.7em",
+  smallText: "1.6rem",
+  extraSmallText: "1.4rem",
 
   // SHADOWS
   shadow1: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
@@ -61,7 +61,7 @@ const Wrapper = styled.main`
   h3,
   h4,
   h5 {
-    margin-bottom: 1.38rem;
+    margin-bottom: 1.5rem;
     font-family: ${CONSTANTS.headingFont};
     font-weight: 400;
     line-height: 1.3;
@@ -75,7 +75,7 @@ const Wrapper = styled.main`
   }
 
   h2 {
-    font-size: 2.441rem;
+    font-size: 3.5rem;
   }
 
   h3 {
@@ -95,11 +95,6 @@ const Wrapper = styled.main`
     max-width: 40em;
   }
 
-  small,
-  .text-small {
-    font-size: ${CONSTANTS.smallText};
-  }
-
   a {
     text-decoration: none;
     letter-spacing: ${CONSTANTS.letterSpacing};
@@ -108,10 +103,16 @@ const Wrapper = styled.main`
   a,
   button {
     line-height: 1.15;
+    text-transform: capitalize;
   }
 
   button:disabled {
     cursor: not-allowed;
+  }
+
+  small,
+  .text-small {
+    font-size: ${CONSTANTS.smallText};
   }
 
   ul {
@@ -125,6 +126,68 @@ const Wrapper = styled.main`
     object-fit: cover;
   }
 
+  .flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .full-page {
+    min-height: 90vh;
+  }
+
+  .form {
+    width: 90vw;
+    max-width: ${CONSTANTS.fixedWidth};
+    background: ${CONSTANTS.white};
+    border-radius: ${CONSTANTS.borderRadius};
+    box-shadow: ${CONSTANTS.shadow2};
+    padding: 3rem 3.5rem;
+    margin: 3rem auto;
+    transition: ${CONSTANTS.transition};
+  }
+
+  .form:hover {
+    box-shadow: ${CONSTANTS.shadow4};
+  }
+
+  .form-label {
+    display: block;
+    font-size: ${CONSTANTS.smallText};
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+    letter-spacing: ${CONSTANTS.letterSpacing};
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border-radius: ${CONSTANTS.borderRadius};
+    background: ${CONSTANTS.backgroundColor};
+    border: 1px solid ${CONSTANTS.grey200};
+  }
+
+  .form-row {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-textarea {
+    height: 7rem;
+  }
+
+  ::placeholder {
+    font-family: inherit;
+    color: ${CONSTANTS.grey400};
+  }
+
+  .form-alert {
+    color: ${CONSTANTS.redDark};
+    letter-spacing: ${CONSTANTS.letterSpacing};
+    text-transform: capitalize;
+  }
+
   .btn {
     cursor: pointer;
     color: ${CONSTANTS.white};
@@ -132,7 +195,7 @@ const Wrapper = styled.main`
     border: transparent;
     border-radius: ${CONSTANTS.borderRadius};
     letter-spacing: ${CONSTANTS.letterSpacing};
-    padding: 1rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     box-shadow: ${CONSTANTS.shadow2};
     transition: ${CONSTANTS.transition};
     text-transform: capitalize;
@@ -142,6 +205,10 @@ const Wrapper = styled.main`
   .btn-hero {
     font-size: 2rem;
     padding: 1rem 2rem;
+  }
+
+  .btn-block {
+    width: 100%;
   }
 
   .btn:hover {
@@ -157,10 +224,6 @@ const Wrapper = styled.main`
   .btn-hipster:hover {
     color: ${CONSTANTS.primary200};
     background: ${CONSTANTS.primary700};
-  }
-
-  .btn-block {
-    width: 100%;
   }
 
   .btn-danger {
@@ -191,64 +254,6 @@ const Wrapper = styled.main`
   .alert-success {
     color: ${CONSTANTS.greenDark};
     background: ${CONSTANTS.greenLight};
-  }
-
-  .form {
-    width: 90vw;
-    max-width: ${CONSTANTS.fixedWidth};
-    background: ${CONSTANTS.white};
-    border-radius: ${CONSTANTS.borderRadius};
-    box-shadow: ${CONSTANTS.shadow2};
-    padding: 2rem 2.5rem;
-    margin: 3rem auto;
-    transition: ${CONSTANTS.transition};
-  }
-
-  .form:hover {
-    box-shadow: ${CONSTANTS.shadow4};
-  }
-
-  .form-label {
-    display: block;
-    font-size: ${CONSTANTS.smallText};
-    margin-bottom: 0.5rem;
-    text-transform: capitalize;
-    letter-spacing: ${CONSTANTS.letterSpacing};
-  }
-
-  .form-input,
-  .form-textarea,
-  .form-select {
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    border-radius: ${CONSTANTS.borderRadius};
-    background: ${CONSTANTS.backgroundColor};
-    border: 1px solid ${CONSTANTS.grey200};
-  }
-
-  .form-input,
-  .form-select,
-  .btn-block {
-    height: 35px;
-  }
-
-  .form-row {
-    margin-bottom: 1rem;
-  }
-
-  .form-textarea {
-    height: 7rem;
-  }
-
-  ::placeholder {
-    font-family: inherit;
-    color: ${CONSTANTS.grey400};
-  }
-
-  .form-alert {
-    color: ${CONSTANTS.redDark};
-    letter-spacing: ${CONSTANTS.letterSpacing};
-    text-transform: capitalize;
   }
 
   @keyframes spinner {
@@ -288,10 +293,6 @@ const Wrapper = styled.main`
     margin: 0 auto;
   }
 
-  .full-page {
-    min-height: 100vh;
-  }
-
   .coffee-info {
     text-align: center;
     text-transform: capitalize;
@@ -316,10 +317,6 @@ const Wrapper = styled.main`
       display: inline-block;
       margin-right: 0.5rem;
     }
-  }
-
-  .Toastify__toast {
-    text-transform: capitalize;
   }
 `;
 

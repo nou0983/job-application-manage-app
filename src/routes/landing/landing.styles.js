@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { CONSTANTS } from "../../index.styles";
 
-const Wrapper = styled.header`
-  nav img {
-    vertical-align: middle;
+const Wrapper = styled.section`
+  nav {
+    padding-top: 2rem;
+
+    img {
+      vertical-align: middle;
+    }
   }
 
   .page {
