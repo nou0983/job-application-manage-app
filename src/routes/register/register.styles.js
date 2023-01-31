@@ -21,6 +21,22 @@ const Wrapper = styled.section`
     margin-top: 1.5rem;
   }
 
+  .spinner {
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 100px;
+    border: 2px solid ${CONSTANTS.grey50};
+    border-top-color: ${CONSTANTS.grey300};
+    animation: spinner 2s infinite linear;
+  }
+
+  @keyframes spinner {
+    100% {
+      rotate: 360deg;
+    }
+  }
+
   p {
     margin: 0;
     margin-top: 1rem;

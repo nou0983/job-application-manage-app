@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormRow } from "../../components/index.component";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { registerUser, loginUser } from "../../features/user/userSlice";
 import logo from "../../assets/images/logo.svg";
 import Wrapper from "./register.styles";
 
@@ -14,6 +17,22 @@ const INITIAL_STATE = {
 const Register = () => {
   const [state, setState] = useState(INITIAL_STATE);
   const { name, email, password, isMember } = state;
+
+  const { user, isLoading } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      const Id = setTimeout(() => {
+        navigate("/");
+      }, 3000);
+      return () => {
+        clearTimeout(Id);
+      };
+    }
+    // eslint-disable-next-line
+  }, [user]);
 
   const handleChange = (e) => {
     const newState = { ...state, [e.target.name]: e.target.value };
@@ -33,9 +52,16 @@ const Register = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      });    
+      });
       return;
     }
+
+    if (isMember) {
+      dispatch(loginUser({ email, password }));
+      return;
+    }
+
+    dispatch(registerUser({ name, email, password }));
   };
 
   const toggleMember = () => {
@@ -70,8 +96,8 @@ const Register = () => {
           handleChange={handleChange}
         />
 
-        <button type="submit" className="btn btn-block">
-          submit
+        <button type="submit" disabled={isLoading} className="btn btn-block">
+          {isLoading ? <span className="spinner"></span> : "submit"}
         </button>
         <p>
           {isMember ? "Not a member yet? " : "Already a memeber? "}
