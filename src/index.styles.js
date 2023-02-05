@@ -48,11 +48,12 @@ export const CONSTANTS = {
   textColor: "#102a43",
   borderRadius: "0.25rem",
   letterSpacing: "1px",
-  transition: "0.3s ease-in-out all",
+  transition: "0.3s ease-in-out",
   maxWidth: "1120px",
   fixedWidth: "500px",
   fluidWidth: "90vw",
   breakpointLg: "992px",
+  centerPadding: '3rem 10rem'
 };
 
 const Wrapper = styled.main`
@@ -104,6 +105,12 @@ const Wrapper = styled.main`
   button {
     line-height: 1.15;
     text-transform: capitalize;
+  }
+
+  button {  
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
   }
 
   button:disabled {
