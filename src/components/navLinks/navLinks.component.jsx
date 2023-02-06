@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { closeSidebar } from "../../features/toggle/toggleSlice";
 import Wrapper from "./navLinks.styles";
 
-const NavLinks = () => {
+const NavLinks = ({ type }) => {
   const dispatch = useDispatch();
 
   return (
@@ -13,7 +13,14 @@ const NavLinks = () => {
         const { text, url, icon } = link;
         return (
           <li key={index}>
-            <NavLink to={url} onClick={() => dispatch(closeSidebar())}>
+            <NavLink
+              to={url}
+              onClick={() => {
+                if (type === "popup") {
+                  dispatch(closeSidebar());
+                }
+              }}
+            >
               <span className="icon">{icon}</span> {text}
             </NavLink>
           </li>

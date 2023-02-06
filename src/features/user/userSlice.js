@@ -25,10 +25,26 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  "user/lognUser",
+  "user/loginUser",
   async (user, thunkAPI) => {
     try {
       const response = await customFetch.post("/auth/login", user);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (user, thunkAPI) => {
+    try {     
+      const response = await customFetch.patch("/auth/updateUser", user, {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.msg);
@@ -97,6 +113,37 @@ const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
+        toast.error(payload, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        state.isLoading = false;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        toast.success('Updated successfully', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        state.user = payload.user;
+        addUserToLocalStorage(payload.user);
+        state.isLoading = false;
+      })
+      .addCase(updateUser.rejected, (state, { payload }) => {
         toast.error(payload, {
           position: "top-center",
           autoClose: 3000,

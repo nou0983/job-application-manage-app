@@ -53,7 +53,7 @@ export const CONSTANTS = {
   fixedWidth: "500px",
   fluidWidth: "90vw",
   breakpointLg: "992px",
-  centerPadding: '3rem 10rem'
+  centerPadding: "3rem 10rem",
 };
 
 const Wrapper = styled.main`
@@ -80,15 +80,15 @@ const Wrapper = styled.main`
   }
 
   h3 {
-    font-size: 1.953rem;
+    font-size: 2.8rem;
   }
 
   h4 {
-    font-size: 1.563rem;
+    font-size: 2.3rem;
   }
 
   h5 {
-    font-size: 1.25rem;
+    font-size: 1.9rem;
   }
 
   p {
@@ -107,7 +107,7 @@ const Wrapper = styled.main`
     text-transform: capitalize;
   }
 
-  button {  
+  button {
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -141,6 +141,22 @@ const Wrapper = styled.main`
 
   .full-page {
     min-height: 90vh;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 100px;
+    border: 2px solid ${CONSTANTS.grey50};
+    border-top-color: ${CONSTANTS.grey300};
+    animation: spinner 2s infinite linear;
+  }
+
+  @keyframes spinner {
+    100% {
+      rotate: 360deg;
+    }
   }
 
   .form {

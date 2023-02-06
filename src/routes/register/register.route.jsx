@@ -8,7 +8,8 @@ import logo from "../../assets/images/logo.svg";
 import Wrapper from "./register.styles";
 
 const INITIAL_STATE = {
-  name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
   isMember: true,
@@ -16,7 +17,7 @@ const INITIAL_STATE = {
 
 const Register = () => {
   const [state, setState] = useState(INITIAL_STATE);
-  const { name, email, password, isMember } = state;
+  const { firstName, lastName, email, password, isMember } = state;
 
   const { user, isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -42,7 +43,12 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email || !password || (!isMember && !name)) {
+    if (
+      !email ||
+      !password ||
+      (!isMember && !firstName) ||
+      (!isMember && !lastName)
+    ) {
       toast.error("Please fill out all fields.", {
         position: "top-center",
         autoClose: 1500,
@@ -61,7 +67,7 @@ const Register = () => {
       return;
     }
 
-    dispatch(registerUser({ name, email, password }));
+    dispatch(registerUser({ name: firstName, lastName, email, password }));
   };
 
   const toggleMember = () => {
@@ -76,12 +82,22 @@ const Register = () => {
         <h2>{isMember ? "login" : "register"}</h2>
 
         {!isMember && (
-          <FormRow
-            type="name"
-            name="name"
-            value={name}
-            handleChange={handleChange}
-          />
+          <>
+            <FormRow
+              text="first name"
+              type="text"
+              name="firstName"
+              value={firstName}
+              handleChange={handleChange}
+            />
+            <FormRow
+              text="last name"
+              type="text"
+              name="lastName"
+              value={lastName}
+              handleChange={handleChange}
+            />
+          </>
         )}
         <FormRow
           type="email"

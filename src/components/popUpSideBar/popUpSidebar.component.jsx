@@ -20,7 +20,7 @@ const PopUpSideBar = () => {
           <FaTimes />
         </button>
         <img src={logo} alt="Jobster logo" />
-        <NavLinks />
+        <NavLinks type="popup" />
       </div>
     </Wrapper>
   );

@@ -10,11 +10,17 @@ const Wrapper = styled.section`
   > div {
     transition: ${CONSTANTS.transition};
     flex-basis: 90%;
+    flex-shrink: 0;
   }
 
   > div.full-size {
-    flex-shrink: 0;
     flex-basis: 100%;
+  }
+
+  @media only screen and (max-width: 992px) {
+    > div {
+      flex-basis: 100%;
+    }
   }
 `;
 
