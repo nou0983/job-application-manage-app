@@ -1,18 +1,18 @@
-const addUserToLocalStorage = (user) => {
-  localStorage.setItem("user", JSON.stringify(user));
+const addDataToLocalStorage = (type, payload) => {
+  localStorage.setItem(type, JSON.stringify(payload));
 };
 
-const removeUserFromLocalStorage = () => {
-  localStorage.removeItem("user");
+const removeDataFromLocalStorage = (type) => {
+  localStorage.removeItem(type);
 };
 
-const getUserFromLocalStorage = () => {
-  const result = localStorage.getItem("user");
-  return result ? JSON.parse(result) : null;
+const getDataFromLocalStorage = (type) => {
+  const result = localStorage.getItem(type);
+  return result ? JSON.parse(result) : type === "user" ? null : false;
 };
 
 export {
-  addUserToLocalStorage,
-  removeUserFromLocalStorage,
-  getUserFromLocalStorage,
+  addDataToLocalStorage,
+  removeDataFromLocalStorage,
+  getDataFromLocalStorage,
 };

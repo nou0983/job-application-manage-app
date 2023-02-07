@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  getDataFromLocalStorage,
+  addDataToLocalStorage,
+} from "../../utils/localStorage";
 
 const INITIAL_STATE = {
-  isSidebarOpen: false,
+  isSidebarOpen: getDataFromLocalStorage("toggle"),
 };
 
 const toggleSlice = createSlice({
@@ -9,9 +13,11 @@ const toggleSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     toggleSidebar: (state) => {
+      addDataToLocalStorage("toggle", !state.isSidebarOpen);
       state.isSidebarOpen = !state.isSidebarOpen;
     },
     closeSidebar: (state) => {
+      addDataToLocalStorage("toggle", false);
       state.isSidebarOpen = false;
     },
   },

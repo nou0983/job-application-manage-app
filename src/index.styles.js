@@ -159,6 +159,30 @@ const Wrapper = styled.main`
     }
   }
 
+  .box-style {
+    margin: 4rem auto 0;
+    width: 90%;
+    background-color: ${CONSTANTS.white};
+    padding: 5rem 4rem;
+    border-radius: ${CONSTANTS.borderRadius};
+    box-shadow: ${CONSTANTS.shadow2};
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2%;
+
+      > * {
+        flex-basis: 32%;
+      }
+
+      button {
+        align-self: flex-end;
+        margin-bottom: 1.4rem;
+      }
+    }
+  }
+
   .form {
     width: 90vw;
     max-width: ${CONSTANTS.fixedWidth};
@@ -190,6 +214,10 @@ const Wrapper = styled.main`
     border-radius: ${CONSTANTS.borderRadius};
     background: ${CONSTANTS.backgroundColor};
     border: 1px solid ${CONSTANTS.grey200};
+  }
+
+  .form-input:disabled {
+    opacity: 0.6;
   }
 
   .form-row {
@@ -237,6 +265,14 @@ const Wrapper = styled.main`
   .btn:hover {
     background: ${CONSTANTS.primary700};
     box-shadow: ${CONSTANTS.shadow3};
+  }
+
+  .btn-clear {
+    background-color: ${CONSTANTS.grey500};
+  }
+
+  .btn-clear:hover {
+    background-color: ${CONSTANTS.black};
   }
 
   .btn-hipster {

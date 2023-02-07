@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  addUserToLocalStorage,
-  removeUserFromLocalStorage,
-  getUserFromLocalStorage,
+  addDataToLocalStorage,
+  removeDataFromLocalStorage,
+  getDataFromLocalStorage,
 } from "../../utils/localStorage";
 import customFetch from "../../utils/axios";
 import { toast } from "react-toastify";
 
 const INITIAL_STATE = {
   isLoading: false,
-  user: getUserFromLocalStorage(),
+  user: getDataFromLocalStorage("user"),
 };
 
 export const registerUser = createAsyncThunk(
@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (user, thunkAPI) => {
-    try {     
+    try {
       const response = await customFetch.patch("/auth/updateUser", user, {
         headers: {
           authorization: `Bearer ${user.token}`,
@@ -58,7 +58,7 @@ const userSlice = createSlice({
   reducers: {
     logoutUser: (state) => {
       state.user = null;
-      removeUserFromLocalStorage();
+      removeDataFromLocalStorage("user");
     },
   },
   extraReducers: (builder) => {
@@ -78,7 +78,7 @@ const userSlice = createSlice({
           theme: "light",
         });
         state.user = payload.user;
-        addUserToLocalStorage(payload.user);
+        addDataToLocalStorage("user", payload.user);
         state.isLoading = false;
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
@@ -109,7 +109,7 @@ const userSlice = createSlice({
           theme: "light",
         });
         state.user = payload.user;
-        addUserToLocalStorage(payload.user);
+        addDataToLocalStorage("user", payload.user);
         state.isLoading = false;
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
@@ -129,7 +129,7 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
-        toast.success('Updated successfully', {
+        toast.success("Updated successfully", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
@@ -140,7 +140,7 @@ const userSlice = createSlice({
           theme: "light",
         });
         state.user = payload.user;
-        addUserToLocalStorage(payload.user);
+        addDataToLocalStorage("user", payload.user);
         state.isLoading = false;
       })
       .addCase(updateUser.rejected, (state, { payload }) => {

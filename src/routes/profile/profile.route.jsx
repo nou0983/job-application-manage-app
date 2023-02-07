@@ -1,4 +1,3 @@
-import Wrapper from "./profile.styles";
 import { FormRow } from "../../components/index.component";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
@@ -39,7 +38,7 @@ const Profile = () => {
   };
 
   return (
-    <Wrapper>
+    <section className="box-style">
       <h3>profile</h3>
       <form onSubmit={handleSubmit}>
         <FormRow
@@ -62,12 +61,12 @@ const Profile = () => {
           value={location}
           handleChange={handleChange}
         />
-        <FormRow type="email" name="email" value={email} disabled="true" />
+        <FormRow type="email" name="email" value={email} disabled={true} />
         <button type="submit" className="btn btn-block" disabled={isLoading}>
           {isLoading ? <span className="spinner"></span> : "save changes"}
         </button>
       </form>
-    </Wrapper>
+    </section>
   );
 };
 export default Profile;
