@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { FormRow, FormRowSelect } from "../../components/index.component";
-import Wrapper from "./addJob.styles";
 import { clearValues, updateValue, addJob } from "../../features/job/jobSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -57,7 +56,7 @@ const AddJob = () => {
   };
 
   return (
-    <Wrapper className="box-style">
+    <section className="box-style">
       <h3>{isEditing ? "edit" : "add"} job</h3>
       <form onSubmit={handleSubmit}>
         <FormRow
@@ -106,7 +105,7 @@ const AddJob = () => {
           </button>
         </div>
       </form>
-    </Wrapper>
+    </section>
   );
 };
 export default AddJob;

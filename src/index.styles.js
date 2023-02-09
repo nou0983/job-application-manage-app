@@ -252,6 +252,13 @@ const Wrapper = styled.main`
     text-transform: capitalize;
     display: inline-block;
   }
+  
+  .btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3%;
+  }
 
   .btn-hero {
     font-size: 2rem;

@@ -20,7 +20,7 @@ export const addJob = createAsyncThunk(
   "job/addJob",
   async (newJob, thunkAPI) => {
     try {
-      const response = customFetch.post("/jobs", newJob, {
+      const response = await customFetch.post("/jobs", newJob, {
         headers: {
           authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
         },
@@ -45,6 +45,10 @@ const jobSlice = createSlice({
     },
     updateValue: (state, { payload: { name, value } }) => {
       state[name] = value;
+    },
+    toggleEditJob: (state, { payload }) => {
+      state.isEditing = true;
+      state.editJobId = payload;
     },
   },
   extraReducers: (builder) => {
@@ -81,6 +85,6 @@ const jobSlice = createSlice({
   },
 });
 
-export const { clearValues, updateValue } = jobSlice.actions;
+export const { clearValues, updateValue, toggleEditJob } = jobSlice.actions;
 
 export default jobSlice.reducer;
