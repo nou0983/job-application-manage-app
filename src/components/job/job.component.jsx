@@ -8,14 +8,15 @@ import {
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { toggleEditJob } from "../../features/job/jobSlice";
-import moment from 'moment';
+import { deleteJob } from "../../features/job/jobSlice";
+import moment from "moment";
 
 const Job = (props) => {
   const dispatch = useDispatch();
   const { _id, company, position, jobLocation, jobType, createdAt, status } =
     props;
-  const date = moment(createdAt).format("Do MMM YYYY");  
- 
+  const date = moment(createdAt).format("Do MMM YYYY");
+
   return (
     <Wrapper>
       <header>
@@ -47,12 +48,25 @@ const Job = (props) => {
             to="/add-job"
             className="btn btn-edit"
             onClick={() => {
-              dispatch(toggleEditJob(_id));
+              dispatch(
+                toggleEditJob({
+                  position,
+                  company,
+                  jobLocation,
+                  jobType,
+                  status,
+                  editJobId: _id,
+                })
+              );
             }}
           >
             edit
           </Link>
-          <button type="button" className="btn btn-delete">
+          <button
+            type="button"
+            className="btn btn-delete"
+            onClick={() => dispatch(deleteJob(_id))}
+          >
             delete
           </button>
         </div>

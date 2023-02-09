@@ -4,8 +4,8 @@ import { CONSTANTS } from "../../index.styles";
 const Wrapper = styled.nav`
   padding: ${CONSTANTS.centerPadding};
   background: ${CONSTANTS.white};
-  /* position: fixed; */
-  /* top: 0; */
+  position: sticky;
+  top: 0;
 
   &.flex-container {
     justify-content: space-between;

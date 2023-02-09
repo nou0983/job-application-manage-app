@@ -1,7 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { FormRow, FormRowSelect } from "../../components/index.component";
-import { clearValues, updateValue, addJob } from "../../features/job/jobSlice";
+import {
+  clearValues,
+  updateValue,
+  addJob,
+  editJob,
+} from "../../features/job/jobSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -23,7 +28,9 @@ const AddJob = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(updateValue({ name: "jobLocation", value: user.location }));
+    if (!isEditing) {
+      dispatch(updateValue({ name: "jobLocation", value: user.location }));
+    }
   }, []);
 
   const handleSubmit = (e) => {
@@ -41,7 +48,18 @@ const AddJob = () => {
       });
       return;
     }
-    dispatch(addJob({ position, company, jobLocation, status, jobType }));
+
+    if (isEditing) {
+      dispatch(
+        editJob({
+          id: editJobId,
+          job: { position, company, jobLocation, status, jobType },
+        })
+      );
+    } else {
+      dispatch(addJob({ position, company, jobLocation, status, jobType }));
+    }
+
     setTimeout(() => {
       navigate("/all-jobs");
     }, 2000);

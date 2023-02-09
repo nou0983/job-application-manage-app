@@ -10,6 +10,8 @@ const Wrapper = styled.aside`
     background-color: ${CONSTANTS.white};
     min-height: 100vh;
     overflow: hidden;
+    position: sticky;
+    top: 0;
 
     div {
       background-color: ${CONSTANTS.white};
