@@ -1,12 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import customFetch from "../../utils/axios";
 import { getDataFromLocalStorage } from "../../utils/localStorage";
-import {
-  hideLoading,
-  showLoading,
-  fetchAllJobs,
-} from "../allJobs/allJobsSlice";
+import { addJobThunk, deleteJobThunk, editJobThunk } from "./jobThunk";
 
 const INITIAL_STATE = {
   isLoading: false,
@@ -21,59 +16,9 @@ const INITIAL_STATE = {
   editJobId: "",
 };
 
-export const addJob = createAsyncThunk(
-  "job/addJob",
-  async (newJob, thunkAPI) => {
-    try {
-      const response = await customFetch.post("/jobs", newJob, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      thunkAPI.dispatch(clearValues());
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
-
-export const deleteJob = createAsyncThunk(
-  "job/deleteJob",
-  async (id, thunkAPI) => {
-    try {
-      thunkAPI.dispatch(showLoading());
-      const response = await customFetch.delete(`/jobs/${id}`, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });   
-      thunkAPI.dispatch(fetchAllJobs());
-      return response.data;
-    } catch (error) {
-      thunkAPI.dispatch(hideLoading());
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
-
-export const editJob = createAsyncThunk(
-  "job/editJob",
-  async ({id, job}, thunkAPI) => {
-    try {
-      const response = await customFetch.patch(`/jobs/${id}`, job, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      thunkAPI.dispatch(clearValues());
-      thunkAPI.dispatch(fetchAllJobs());
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
+export const addJob = createAsyncThunk("job/addJob", addJobThunk);
+export const deleteJob = createAsyncThunk("job/deleteJob", deleteJobThunk);
+export const editJob = createAsyncThunk("job/editJob", editJobThunk);
 
 const jobSlice = createSlice({
   name: "job",
