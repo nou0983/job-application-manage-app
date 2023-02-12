@@ -6,6 +6,10 @@ import NavLinks from "./navLinks/navLinks.component";
 import FormRowSelect from "./formRowSelect/formRowSelect.component";
 import JobsContainer from "./jobsContainer/jobsContainer.component";
 import Spinner from "./spinner/spinner.component";
+import ChartsContainer from "./chartsContainer/chartsContainer.component";
+import StatsContainer from "./statsContainer/statsContainer.component";
+import BarCharts from "./barChart/barCharts.component";
+import AreaCharts from "./areaChart/areaCharts.component";
 
 export {
   FormRow,
@@ -16,4 +20,8 @@ export {
   NavLinks,
   JobsContainer,
   Spinner,
+  ChartsContainer,
+  StatsContainer,
+  BarCharts,
+  AreaCharts,
 };
