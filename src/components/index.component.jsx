@@ -10,6 +10,8 @@ import ChartsContainer from "./chartsContainer/chartsContainer.component";
 import StatsContainer from "./statsContainer/statsContainer.component";
 import BarCharts from "./barChart/barCharts.component";
 import AreaCharts from "./areaChart/areaCharts.component";
+import PageBtnContainer from "./pageBtnContainer/pageBtnContainer.component";
+import Job from "./job/job.component";
 
 export {
   FormRow,
@@ -24,4 +26,6 @@ export {
   StatsContainer,
   BarCharts,
   AreaCharts,
+  PageBtnContainer,
+  Job,
 };

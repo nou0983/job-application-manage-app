@@ -2,7 +2,7 @@ import Wrapper from "./navigation.styles";
 import { FaBars, FaUserCircle, FaAngleDown } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { logoutUser } from "../../features/user/userSlice";
+import { clearStore } from "../../features/user/userSlice";
 import { toggleSidebar, closeSidebar } from "../../features/toggle/toggleSlice";
 
 const Navigation = () => {
@@ -33,7 +33,7 @@ const Navigation = () => {
           className={`btn-dropdown ${isDropdownOpen && "btn-dropdown--show"}`}
           onClick={() => {
             dispatch(closeSidebar());
-            dispatch(logoutUser());
+            dispatch(clearStore());
           }}
         >
           logout

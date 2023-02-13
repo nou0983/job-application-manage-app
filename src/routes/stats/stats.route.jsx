@@ -15,6 +15,7 @@ const Stats = () => {
 
   useEffect(() => {
     dispatch(showStats());
+    // eslint-disable-next-line
   }, []);
 
   if (isLoading) {

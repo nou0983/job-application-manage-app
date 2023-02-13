@@ -4,7 +4,12 @@ import {
   removeDataFromLocalStorage,
   getDataFromLocalStorage,
 } from "../../utils/localStorage";
-import customFetch from "../../utils/axios";
+import {
+  clearStoreThunk,
+  registerUserThunk,
+  loginUserThunk,
+  updateUserThunk,
+} from "./userSliceThunk";
 import { toast } from "react-toastify";
 
 const INITIAL_STATE = {
@@ -12,45 +17,16 @@ const INITIAL_STATE = {
   user: getDataFromLocalStorage("user"),
 };
 
+export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk);
+
 export const registerUser = createAsyncThunk(
   "user/registerUser",
-  async (user, thunkAPI) => {
-    try {
-      const response = await customFetch.post("/auth/register", user);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
+  registerUserThunk
 );
 
-export const loginUser = createAsyncThunk(
-  "user/loginUser",
-  async (user, thunkAPI) => {
-    try {
-      const response = await customFetch.post("/auth/login", user);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
+export const loginUser = createAsyncThunk("user/loginUser", loginUserThunk);
 
-export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async (user, thunkAPI) => {
-    try {
-      const response = await customFetch.patch("/auth/updateUser", user, {
-        headers: {
-          authorization: `Bearer ${user.token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
+export const updateUser = createAsyncThunk("user/updateUser", updateUserThunk);
 
 const userSlice = createSlice({
   name: "user",

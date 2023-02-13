@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import {
   FormRow,
   FormRowSelect,
@@ -22,33 +21,21 @@ const AllJobs = () => {
     searchType,
     sort,
     sortOptions,
+    totalJobs,
+    numOfPages,
+    page,
   } = useSelector((store) => store.allJobs);
   const { statusOptions, jobTypeOptions } = useSelector((store) => store.job);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllJobs());
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!search) {
-      toast.error("Please fill out all fields.", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    dispatch(fetchAllJobs());
-  };
+    // eslint-disable-next-line
+  }, [search, searchStatus, searchType, sort, page]);
 
   const handleChange = (e) => {
+    if (isLoading) return;
+
     const newValue = {
       name: e.target.name,
       value: e.target.value,
@@ -60,22 +47,23 @@ const AllJobs = () => {
     <section>
       <div className="box-style">
         <h3>search form</h3>
-        <form onSubmit={handleSubmit}>
+        <form>
           <FormRow
             type="text"
-            name="keyword"
+            name="search"
             value={search}
             handleChange={handleChange}
           />
           <FormRowSelect
-            options={statusOptions}
-            name="status"
+            options={["all", ...statusOptions]}
+            name="searchStatus"
+            text="status"
             value={searchStatus}
             handleChange={handleChange}
           />
           <FormRowSelect
-            options={jobTypeOptions}
-            name="jobType"
+            options={["all", ...jobTypeOptions]}
+            name="searchType"
             value={searchType}
             text="type"
             handleChange={handleChange}
@@ -95,7 +83,15 @@ const AllJobs = () => {
           </button>
         </form>
       </div>
-      {isLoading ? <Spinner /> : jobs?.length && <JobsContainer jobs={jobs} />}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <JobsContainer
+          jobs={jobs}
+          numOfPages={numOfPages}
+          totalJobs={totalJobs}
+        />
+      )}
     </section>
   );
 };

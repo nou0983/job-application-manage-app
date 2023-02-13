@@ -31,6 +31,7 @@ const AddJob = () => {
     if (!isEditing) {
       dispatch(updateValue({ name: "jobLocation", value: user.location }));
     }
+    // eslint-disable-next-line
   }, []);
 
   const handleSubmit = (e) => {
