@@ -9,7 +9,7 @@ import {
   updateFilters,
   clearFilters,
 } from "../../features/allJobs/allJobsSlice";
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { JobsContainer } from "../../components/index.component";
 
 const AllJobs = () => {
@@ -27,6 +27,7 @@ const AllJobs = () => {
   } = useSelector((store) => store.allJobs);
   const { statusOptions, jobTypeOptions } = useSelector((store) => store.job);
   const dispatch = useDispatch();
+  const [localSearch, setLocalSearch] = useState("");
 
   useEffect(() => {
     dispatch(fetchAllJobs());
@@ -34,14 +35,29 @@ const AllJobs = () => {
   }, [search, searchStatus, searchType, sort, page]);
 
   const handleChange = (e) => {
-    if (isLoading) return;
-
     const newValue = {
       name: e.target.name,
       value: e.target.value,
     };
     dispatch(updateFilters(newValue));
   };
+
+  const debounce = () => {
+    let timeOutId;
+    return (e) => {
+      setLocalSearch(e.target.value);
+      clearTimeout(timeOutId);
+      timeOutId = setTimeout(() => {
+        handleChange(e);
+      }, 1000);
+    };
+  };
+
+  const optimisedDebounce = useMemo(
+    () => debounce(),
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <section>
@@ -51,8 +67,8 @@ const AllJobs = () => {
           <FormRow
             type="text"
             name="search"
-            value={search}
-            handleChange={handleChange}
+            value={localSearch}
+            handleChange={optimisedDebounce}
           />
           <FormRowSelect
             options={["all", ...statusOptions]}
@@ -77,7 +93,10 @@ const AllJobs = () => {
           <button
             type="button"
             className="btn btn-block btn-clear"
-            onClick={() => dispatch(clearFilters())}
+            onClick={() => {
+              setLocalSearch("");
+              dispatch(clearFilters());
+            }}
           >
             clear filters
           </button>
