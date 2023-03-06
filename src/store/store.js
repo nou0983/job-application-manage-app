@@ -11,4 +11,5 @@ export const store = configureStore({
     job: jobReducer,
     allJobs: allJobsReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 });
